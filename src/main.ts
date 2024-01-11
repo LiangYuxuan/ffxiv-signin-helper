@@ -18,6 +18,8 @@ export default async (cookies: string) => {
         } else {
             logger.info('今天已签到');
         }
+
+        await new Promise((resolve) => { setTimeout(resolve, 5000); });
     } else {
         logger.info('今天已签到');
     }
@@ -43,6 +45,8 @@ export default async (cookies: string) => {
                     logger.error(`领取失败：${(err as Error).message}`);
                 }
             }));
+
+        await new Promise((resolve) => { setTimeout(resolve, 5000); });
     }
 
     for (let i = 0; i < 5; i += 1) {

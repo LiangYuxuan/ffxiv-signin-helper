@@ -225,7 +225,11 @@ export const getSignInRewardList = async (
     return result.data as SignInReward[];
 };
 
-export const getSignInReward = async (cookies: string, id: number): Promise<void> => {
+export const getSignInReward = async (
+    cookies: string,
+    id: number,
+    month = new Date(),
+): Promise<void> => {
     const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/sign/getSignReward', {
         headers: {
             'User-Agent': UserAgent,
@@ -237,6 +241,7 @@ export const getSignInReward = async (cookies: string, id: number): Promise<void
         },
         form: {
             id,
+            month: month.toISOString().slice(0, 7),
             tempsuid: crypto.randomUUID(),
         },
     }).json();
