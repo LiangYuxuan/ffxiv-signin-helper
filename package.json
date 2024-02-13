@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "crypto-es": "^2.1.0",
-    "dotenv": "^16.4.2",
+    "dotenv": "^16.4.3",
     "got": "^14.2.0",
     "jimp": "^0.22.10",
     "jsqr": "^1.4.0",
