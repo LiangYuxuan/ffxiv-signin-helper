@@ -18,7 +18,7 @@
   "dependencies": {
     "crypto-es": "^2.1.0",
     "dotenv": "^16.4.5",
-    "got": "^14.2.0",
+    "got": "^14.2.1",
     "jimp": "^0.22.12",
     "jsqr": "^1.4.0",
     "node-cron": "^3.0.3",
@@ -37,6 +37,6 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }
