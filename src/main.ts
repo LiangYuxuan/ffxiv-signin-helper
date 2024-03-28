@@ -14,7 +14,7 @@ export default async (cookies: string) => {
         const signInResult = await doSignIn(cookies);
 
         if (signInResult) {
-            logger.info(`签到成功：连续签到${signInResult.continuousDays}天，获得${signInResult.sqExp}经验`);
+            logger.info(`签到成功：连续签到${signInResult.continuousDays.toString()}天，获得${signInResult.sqExp.toString()}经验`);
         } else {
             logger.info('今天已签到');
         }
@@ -30,8 +30,8 @@ export default async (cookies: string) => {
     const pendingReward = signInReward.filter((item) => item.is_get === 0);
     const incompleteReward = signInReward.filter((item) => item.is_get === -1);
 
-    logger.info(`尚有${pendingReward.length}个签到奖励待领取`);
-    logger.info(`尚有${incompleteReward.length}个签到奖励未完成`);
+    logger.info(`尚有${pendingReward.length.toString()}个签到奖励待领取`);
+    logger.info(`尚有${incompleteReward.length.toString()}个签到奖励未完成`);
 
     if (pendingReward.length > 0) {
         await Promise.all(pendingReward
@@ -53,7 +53,7 @@ export default async (cookies: string) => {
         const content = '<p><span class="at-emo">[emo1]</span>&nbsp;</p>';
         const postID = '9365';
 
-        logger.info(`水贴发表评论（${i + 1} / 5）`);
+        logger.info(`水贴发表评论（${(i + 1).toString()} / 5）`);
 
         // eslint-disable-next-line no-await-in-loop
         await createPostComment(cookies, content, postID);
@@ -65,9 +65,9 @@ export default async (cookies: string) => {
     for (let i = 0; i < 5; i += 1) {
         const content = '<p><span class="at-emo">[emo1]</span>&nbsp;</p>';
 
-        logger.info(`发表动态并删除（${i + 1} / 5）`);
+        logger.info(`发表动态并删除（${(i + 1).toString()} / 5）`);
 
-        logger.info(`发表动态（${i + 1} / 5）`);
+        logger.info(`发表动态（${(i + 1).toString()} / 5）`);
 
         // eslint-disable-next-line no-await-in-loop
         const data = await createDynamic(cookies, content);
@@ -75,7 +75,7 @@ export default async (cookies: string) => {
         // eslint-disable-next-line no-await-in-loop
         await new Promise((resolve) => { setTimeout(resolve, 5000); });
 
-        logger.info(`删除动态（${i + 1} / 5）`);
+        logger.info(`删除动态（${(i + 1).toString()} / 5）`);
 
         // eslint-disable-next-line no-await-in-loop
         await deleteDynamic(cookies, data.id);
