@@ -23,7 +23,7 @@
     "jsqr": "^1.4.0",
     "node-cron": "^3.0.3",
     "qrcode-terminal": "^0.12.0",
-    "tough-cookie": "^4.1.3",
+    "tough-cookie": "^4.1.4",
     "winston": "^3.13.0"
   },
   "devDependencies": {
