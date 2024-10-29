@@ -8,7 +8,7 @@ import Jimp from 'jimp';
 import jsQR from 'jsqr';
 import qrcode from 'qrcode-terminal';
 
-const UserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36';
+const UserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
 
 const getLoginQRCode = async (
     cookieJar: CookieJar,
