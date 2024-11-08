@@ -126,34 +126,6 @@ interface SignInReward {
     is_get: number,
 }
 
-interface PostCommentDetail {
-    id: string,
-    children_count: string,
-    mask_content: string,
-    comment_pic: string,
-    uuid: string,
-    character_name: string,
-    area_name: string,
-    group_name: string,
-    created_at: string,
-    ip_location: string,
-    posts_id: string,
-    like_count: string,
-    avatar: string,
-    test_limited_badge: number,
-    posts2_creator_badge: number,
-    collapse_badge: number,
-    admin_tag: number,
-    is_posts_author: number,
-    is_like: number,
-    is_mine: number,
-}
-
-interface PostCommentsResult {
-    pageTime: string,
-    rows: PostCommentDetail[],
-}
-
 interface DynamicDetail {
     status: number,
     comment_count: number,
@@ -309,37 +281,6 @@ export const getSignInReward = async (
     assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
 };
 
-export const getPostComments = async (
-    cookies: string,
-    id: string,
-    order: 'latest' | 'hottest' | 'earliest',
-    page = 1,
-    limit = 10,
-    onlyLandlord: 0 | 1 = 0,
-): Promise<PostCommentDetail[]> => {
-    const headers = new Headers();
-    headers.set('User-Agent', userAgent);
-    headers.set('Cookie', cookies);
-    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
-
-    const params = new URLSearchParams();
-    params.set('id', id);
-    params.set('order', order);
-    params.set('page', page.toString());
-    params.set('limit', limit.toString());
-    params.set('onlyLandlord', onlyLandlord.toString());
-    params.set('pageTime', '');
-    params.set('tempsuid', crypto.randomUUID());
-
-    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/postsCommentDetail?${params}`, { headers });
-    const res = await req.json() as APIReturn;
-
-    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
-
-    const data = res.data as PostCommentsResult;
-    return data.rows;
-};
-
 export const createPostComment = async (
     cookies: string,
     content: string,
@@ -366,27 +307,6 @@ export const createPostComment = async (
     body.set('tempsuid', crypto.randomUUID());
 
     const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/comment?${params}`, { method: 'POST', headers, body });
-    const res = await req.json() as APIReturn;
-
-    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
-};
-
-export const createPostLike = async (cookies: string, type: string, id: string): Promise<void> => {
-    const headers = new Headers();
-    headers.set('User-Agent', userAgent);
-    headers.set('Cookie', cookies);
-    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
-    headers.set('Content-Type', 'application/x-www-form-urlencoded');
-
-    const params = new URLSearchParams();
-    params.set('tempsuid', crypto.randomUUID());
-
-    const body = new URLSearchParams();
-    body.set('type', type);
-    body.set('id', id);
-    body.set('tempsuid', crypto.randomUUID());
-
-    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/like?${params}`, { method: 'POST', headers, body });
     const res = await req.json() as APIReturn;
 
     assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
