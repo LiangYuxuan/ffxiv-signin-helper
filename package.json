@@ -22,12 +22,14 @@
     "jsqr": "^1.4.0",
     "node-cron": "^3.0.3",
     "qrcode": "^1.5.4",
+    "tough-cookie": "^5.0.0",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@rhyster/eslint-config": "^1.4.0",
     "@types/node": "^22.9.0",
     "@types/node-cron": "^3.0.11",
+    "@types/qrcode": "^1.5.5",
     "eslint": "^9.14.0",
     "typescript": "^5.6.3"
   }
