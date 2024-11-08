@@ -1,7 +1,10 @@
 {
+    // using "module": "ESNext" and "moduleResolution": "Bundler"
+    // to support jsqr which is missing file extensions in its types
+    // so NodeNext is not working with it
     "compilerOptions": {
         "target": "ESNext",
-        "module": "NodeNext",
+        "module": "ESNext",
         "rootDir": "./src",
         "outDir": "./dist",
         "allowImportingTsExtensions": true,
@@ -11,7 +14,7 @@
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "sourceMap": true,
