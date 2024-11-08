@@ -1,7 +1,8 @@
-import assert from 'node:assert';
-import got from 'got';
+/* eslint-disable @typescript-eslint/naming-convention */
 
-const UserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
+import assert from 'node:assert';
+
+import userAgent from './userAgent.ts';
 
 interface APIReturn {
     code: number;
@@ -18,23 +19,6 @@ interface LoginInfo {
     lastLoginTime: string,
     punishStatusArr: string[],
 }
-
-export const getLoginInfo = async (cookies: string): Promise<LoginInfo> => {
-    const result: APIReturn = await got.get('https://apiff14risingstones.web.sdo.com/api/home/GHome/isLogin', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-
-    return result.data as LoginInfo;
-};
 
 interface CharacterInfo {
     uuid: string,
@@ -108,24 +92,6 @@ interface CharacterInfo {
     createdAtLikePageMin: string,
 }
 
-export const getCharacterBindInfo = async (cookies: string): Promise<CharacterInfo> => {
-    const result: APIReturn = await got.get('https://apiff14risingstones.web.sdo.com/api/home/groupAndRole/getCharacterBindInfo', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            platform: 1,
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-
-    return result.data as CharacterInfo;
-};
-
 interface SignInResult {
     sqMsg: string,
     continuousDays: number,
@@ -133,32 +99,6 @@ interface SignInResult {
     sqExp: number,
     shopExp: number,
 }
-
-export const doSignIn = async (cookies: string): Promise<SignInResult | undefined> => {
-    const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/sign/signIn', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        form: {
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(
-        result.code === 10000
-        || result.code === 10002
-        || result.code === 0
-        || result.code === 10001,
-        result.msg,
-    );
-
-    return result.data as SignInResult | undefined;
-};
 
 interface SignInLog {
     count: number,
@@ -174,24 +114,6 @@ interface SignInLog {
     }[],
 }
 
-export const getSignLog = async (cookies: string, month = new Date()): Promise<SignInLog> => {
-    const result: APIReturn = await got.get('https://apiff14risingstones.web.sdo.com/api/home/sign/mySignLog', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            month: month.toISOString().slice(0, 7),
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-
-    return result.data as SignInLog;
-};
-
 interface SignInReward {
     id: number,
     begin_date: string,
@@ -203,51 +125,6 @@ interface SignInReward {
     item_desc: string,
     is_get: number,
 }
-
-export const getSignInRewardList = async (
-    cookies: string,
-    month = new Date(),
-): Promise<SignInReward[]> => {
-    const result: APIReturn = await got.get('https://apiff14risingstones.web.sdo.com/api/home/sign/signRewardList', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            month: month.toISOString().slice(0, 7),
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-
-    return result.data as SignInReward[];
-};
-
-export const getSignInReward = async (
-    cookies: string,
-    id: number,
-    month = new Date(),
-): Promise<void> => {
-    const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/sign/getSignReward', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        form: {
-            id,
-            month: month.toISOString().slice(0, 7),
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-};
 
 interface PostCommentDetail {
     id: string,
@@ -276,89 +153,6 @@ interface PostCommentsResult {
     pageTime: string,
     rows: PostCommentDetail[],
 }
-
-export const getPostComments = async (
-    cookies: string,
-    id: string,
-    order: 'latest' | 'hottest' | 'earliest',
-    page = 1,
-    limit = 10,
-    onlyLandlord: 0 | 1 = 0,
-): Promise<PostCommentDetail[]> => {
-    const result: APIReturn = await got.get('https://apiff14risingstones.web.sdo.com/api/home/posts/postsCommentDetail', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            id,
-            order,
-            page,
-            limit,
-            onlyLandlord,
-
-            pageTime: '',
-
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-
-    const data = result.data as PostCommentsResult;
-    return data.rows;
-};
-
-export const createPostComment = async (
-    cookies: string,
-    content: string,
-    posts_id: string,
-    parent_id = '0',
-    root_parent = '0',
-    comment_pic = '',
-): Promise<void> => {
-    const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/posts/comment', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        form: {
-            content,
-            posts_id,
-            parent_id,
-            root_parent,
-            comment_pic,
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-};
-
-export const createPostLike = async (cookies: string, type: string, id: string): Promise<void> => {
-    const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/posts/like', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        form: {
-            type,
-            id,
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
-
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
-};
 
 interface DynamicDetail {
     status: number,
@@ -389,48 +183,258 @@ interface DynamicDetail {
     platform: string,
 }
 
+export const getLoginInfo = async (cookies: string): Promise<LoginInfo> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/GHome/isLogin?${params}`, { headers });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    return res.data as LoginInfo;
+};
+
+export const getCharacterBindInfo = async (cookies: string): Promise<CharacterInfo> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+
+    const params = new URLSearchParams();
+    params.set('platform', '1');
+    params.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/groupAndRole/getCharacterBindInfo?${params}`, { headers });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    return res.data as CharacterInfo;
+};
+
+export const doSignIn = async (cookies: string): Promise<SignInResult | undefined> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const body = new URLSearchParams();
+    body.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/signIn?${params}`, { method: 'POST', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(
+        res.code === 10000
+        || res.code === 10002
+        || res.code === 0
+        || res.code === 10001,
+        res.msg,
+    );
+
+    return res.data as SignInResult | undefined;
+};
+
+export const getSignLog = async (cookies: string, month = new Date()): Promise<SignInLog> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+
+    const params = new URLSearchParams();
+    params.set('month', month.toISOString().slice(0, 7));
+    params.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/mySignLog?${params}`, { headers });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    return res.data as SignInLog;
+};
+
+export const getSignInRewardList = async (
+    cookies: string,
+    month = new Date(),
+): Promise<SignInReward[]> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+
+    const params = new URLSearchParams();
+    params.set('month', month.toISOString().slice(0, 7));
+    params.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/signRewardList?${params}`, { headers });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    return res.data as SignInReward[];
+};
+
+export const getSignInReward = async (
+    cookies: string,
+    id: number,
+    month = new Date(),
+): Promise<void> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const body = new URLSearchParams();
+    body.set('id', id.toString());
+    body.set('month', month.toISOString().slice(0, 7));
+    body.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/getSignReward?${params}`, { method: 'POST', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+};
+
+export const getPostComments = async (
+    cookies: string,
+    id: string,
+    order: 'latest' | 'hottest' | 'earliest',
+    page = 1,
+    limit = 10,
+    onlyLandlord: 0 | 1 = 0,
+): Promise<PostCommentDetail[]> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+
+    const params = new URLSearchParams();
+    params.set('id', id);
+    params.set('order', order);
+    params.set('page', page.toString());
+    params.set('limit', limit.toString());
+    params.set('onlyLandlord', onlyLandlord.toString());
+    params.set('pageTime', '');
+    params.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/postsCommentDetail?${params}`, { headers });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    const data = res.data as PostCommentsResult;
+    return data.rows;
+};
+
+export const createPostComment = async (
+    cookies: string,
+    content: string,
+    posts_id: string,
+    parent_id = '0',
+    root_parent = '0',
+    comment_pic = '',
+): Promise<void> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const body = new URLSearchParams();
+    body.set('content', content);
+    body.set('posts_id', posts_id);
+    body.set('parent_id', parent_id);
+    body.set('root_parent', root_parent);
+    body.set('comment_pic', comment_pic);
+    body.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/comment?${params}`, { method: 'POST', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+};
+
+export const createPostLike = async (cookies: string, type: string, id: string): Promise<void> => {
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const body = new URLSearchParams();
+    body.set('type', type);
+    body.set('id', id);
+    body.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/posts/like?${params}`, { method: 'POST', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+};
+
 export const createDynamic = async (
     cookies: string,
     content: string,
     scope: 1 | 2 | 3 = 1,
     pic_url = '',
 ): Promise<DynamicDetail> => {
-    const result: APIReturn = await got.post('https://apiff14risingstones.web.sdo.com/api/home/dynamic/create', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        form: {
-            content,
-            scope,
-            pic_url,
-            tempsuid: crypto.randomUUID(),
-        },
-    }).json();
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
 
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
 
-    return result.data as DynamicDetail;
+    const body = new URLSearchParams();
+    body.set('content', content);
+    body.set('scope', scope.toString());
+    body.set('pic_url', pic_url);
+    body.set('tempsuid', crypto.randomUUID());
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/dynamic/create?${params}`, { method: 'POST', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
+
+    return res.data as DynamicDetail;
 };
 
 export const deleteDynamic = async (cookies: string, id: number): Promise<void> => {
-    const result: APIReturn = await got.delete('https://apiff14risingstones.web.sdo.com/api/home/dynamic/deleteDynamic', {
-        headers: {
-            'User-Agent': UserAgent,
-            Cookie: cookies,
-            Referer: 'https://ff14risingstones.web.sdo.com/',
-        },
-        searchParams: {
-            tempsuid: crypto.randomUUID(),
-        },
-        json: {
-            dynamic_id: id,
-        },
-    }).json();
+    const headers = new Headers();
+    headers.set('User-Agent', userAgent);
+    headers.set('Cookie', cookies);
+    headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
+    headers.set('Content-Type', 'application/json');
 
-    assert(result.code === 10000 || result.code === 10002 || result.code === 0, result.msg);
+    const params = new URLSearchParams();
+    params.set('tempsuid', crypto.randomUUID());
+
+    const body = JSON.stringify({ dynamic_id: id });
+
+    const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/dynamic/deleteDynamic?${params}`, { method: 'DELETE', headers, body });
+    const res = await req.json() as APIReturn;
+
+    assert(res.code === 10000 || res.code === 10002 || res.code === 0, res.msg);
 };

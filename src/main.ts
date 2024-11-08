@@ -1,8 +1,8 @@
-import logger from './logger.ts';
 import {
     getLoginInfo, getCharacterBindInfo, doSignIn, getSignLog, getSignInRewardList, getSignInReward,
     createPostComment, createDynamic, deleteDynamic,
 } from './api.ts';
+import logger from './logger.ts';
 
 export default async (cookies: string) => {
     await getLoginInfo(cookies);
