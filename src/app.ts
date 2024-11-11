@@ -12,7 +12,7 @@ const pushKey = process.env.PUSHKEY ?? '';
 const cronExp = process.env.CRON_EXP ?? '';
 
 const coreHandler = async () => {
-    await main(await getCookies('sdo.com'));
+    await main(await getCookies('sdo.com', 'ff14risingstones.web.sdo.com'));
 };
 
 const mainHandler = () => {
