@@ -20,7 +20,7 @@
     "jsqr": "^1.4.0",
     "node-cron": "^3.0.3",
     "qrcode": "^1.5.4",
-    "tough-cookie": "^5.0.0",
+    "tough-cookie": "^5.1.0",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
