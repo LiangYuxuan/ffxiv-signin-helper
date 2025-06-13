@@ -21,7 +21,7 @@
     "node-cron": "^4.1.0",
     "qrcode": "^1.5.4",
     "tough-cookie": "^5.1.2",
-    "tsx": "^4.20.1"
+    "tsx": "^4.20.3"
   },
   "devDependencies": {
     "@rhyster/eslint-config": "^1.7.26",
