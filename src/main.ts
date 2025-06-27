@@ -49,7 +49,8 @@ export default async (cookies: string) => {
         await new Promise((resolve) => { setTimeout(resolve, 5000); });
     }
 
-    for (let i = 0; i < 5; i += 1) {
+    // XXX: 目前官方水贴已失效
+    for (let i = 0; i < 0; i += 1) {
         const content = '<p><span class="at-emo">[emo1]</span>&nbsp;</p>';
         const postID = '9365';
 
