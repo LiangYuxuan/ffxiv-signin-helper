@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "dotenv": "^17.0.1",
+    "dotenv": "^17.1.0",
     "fetch-cookie": "^3.1.0",
     "jimp": "^1.6.0",
     "jsqr": "^1.4.0",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@rhyster/eslint-config": "^1.7.30",
-    "@types/node": "^22.16.0",
+    "@types/node": "^22.16.2",
     "@types/node-cron": "^3.0.11",
     "@types/qrcode": "^1.5.5",
     "eslint": "^9.30.1",
