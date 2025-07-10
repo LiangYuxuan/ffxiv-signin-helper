@@ -18,14 +18,14 @@
     "fetch-cookie": "^3.1.0",
     "jimp": "^1.6.0",
     "jsqr": "^1.4.0",
-    "node-cron": "^4.2.0",
+    "node-cron": "^4.2.1",
     "qrcode": "^1.5.4",
     "tough-cookie": "^5.1.2",
     "tsx": "^4.20.3"
   },
   "devDependencies": {
     "@rhyster/eslint-config": "^1.7.30",
-    "@types/node": "^22.16.2",
+    "@types/node": "^22.16.3",
     "@types/node-cron": "^3.0.11",
     "@types/qrcode": "^1.5.5",
     "eslint": "^9.30.1",
