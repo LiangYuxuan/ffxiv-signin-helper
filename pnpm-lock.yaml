@@ -27,8 +27,8 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       tough-cookie:
-        specifier: ^5.1.2
-        version: 5.1.2
+        specifier: ^6.0.0
+        version: 6.0.0
       tsx:
         specifier: ^4.20.4
         version: 4.20.4
@@ -1293,8 +1293,15 @@ packages:
   tldts-core@6.1.60:
     resolution: {integrity: sha512-XHjoxak8SFQnHnmYHb3PcnW5TZ+9ErLZemZei3azuIRhQLw4IExsVbL3VZJdHcLeNaXq6NqawgpDPpjBOg4B5g==}
 
+  tldts-core@7.0.11:
+    resolution: {integrity: sha512-65eeOpBwWBabh0XqT+zB0vEllq/V3XcrF2fhgMXWWFfNw1yxEjeYg9Vv/B/UNozd0CTR/TohO1ubfn6O6mBW3w==}
+
   tldts@6.1.60:
     resolution: {integrity: sha512-TYVHm7G9NCnhgqOsFalbX6MG1Po5F4efF+tLfoeiOGQq48Oqgwcgz8upY2R1BHWa4aDrj28RYx0dkYJ63qCFMg==}
+    hasBin: true
+
+  tldts@7.0.11:
+    resolution: {integrity: sha512-7k7JV/LZpGhFUu2t+YDaMZ1wdPPRNpaCYNQ0NQbSLY3Rbgy+XbCdkXyqRiS9TLXiYAsrv0yiA0OvnxmgRFCdNA==}
     hasBin: true
 
   to-regex-range@5.0.1:
@@ -1307,6 +1314,10 @@ packages:
 
   tough-cookie@5.1.2:
     resolution: {integrity: sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==}
+    engines: {node: '>=16'}
+
+  tough-cookie@6.0.0:
+    resolution: {integrity: sha512-kXuRi1mtaKMrsLUxz3sQYvVl37B0Ns6MzfrtV5DvJceE9bPyspOqk9xxv7XbZWcfLWbFmm997vl83qUWVJA64w==}
     engines: {node: '>=16'}
 
   ts-api-utils@2.1.0:
@@ -2683,9 +2694,15 @@ snapshots:
 
   tldts-core@6.1.60: {}
 
+  tldts-core@7.0.11: {}
+
   tldts@6.1.60:
     dependencies:
       tldts-core: 6.1.60
+
+  tldts@7.0.11:
+    dependencies:
+      tldts-core: 7.0.11
 
   to-regex-range@5.0.1:
     dependencies:
@@ -2699,6 +2716,10 @@ snapshots:
   tough-cookie@5.1.2:
     dependencies:
       tldts: 6.1.60
+
+  tough-cookie@6.0.0:
+    dependencies:
+      tldts: 7.0.11
 
   ts-api-utils@2.1.0(typescript@5.9.2):
     dependencies:
