@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "dotenv": "^17.2.1",
+    "dotenv": "^17.2.2",
     "fetch-cookie": "^3.1.0",
     "jimp": "^1.6.0",
     "jsqr": "^1.4.0",
@@ -31,5 +31,5 @@
     "eslint": "^9.34.0",
     "typescript": "^5.9.2"
   },
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.15.1"
 }
