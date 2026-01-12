@@ -19,7 +19,7 @@ export default async (cookies: string) => {
             logger.info('今天已签到');
         }
 
-        await new Promise((resolve) => { setTimeout(resolve, 10000); });
+        await new Promise((resolve) => { setTimeout(resolve, 20000); });
     } else {
         logger.info('今天已签到');
     }
@@ -46,7 +46,7 @@ export default async (cookies: string) => {
                 }
             }));
 
-        await new Promise((resolve) => { setTimeout(resolve, 10000); });
+        await new Promise((resolve) => { setTimeout(resolve, 20000); });
     }
 
     // XXX: 目前官方水贴已失效
@@ -60,7 +60,7 @@ export default async (cookies: string) => {
         await createPostComment(cookies, content, postID);
 
         // eslint-disable-next-line no-await-in-loop
-        await new Promise((resolve) => { setTimeout(resolve, 10000); });
+        await new Promise((resolve) => { setTimeout(resolve, 20000); });
     }
 
     for (let i = 0; i < 5; i += 1) {
@@ -74,7 +74,7 @@ export default async (cookies: string) => {
         const data = await createDynamic(cookies, content);
 
         // eslint-disable-next-line no-await-in-loop
-        await new Promise((resolve) => { setTimeout(resolve, 10000); });
+        await new Promise((resolve) => { setTimeout(resolve, 20000); });
 
         logger.info(`删除动态（${(i + 1).toString()} / 5）`);
 
@@ -82,6 +82,6 @@ export default async (cookies: string) => {
         await deleteDynamic(cookies, data.id);
 
         // eslint-disable-next-line no-await-in-loop
-        await new Promise((resolve) => { setTimeout(resolve, 10000); });
+        await new Promise((resolve) => { setTimeout(resolve, 20000); });
     }
 };
