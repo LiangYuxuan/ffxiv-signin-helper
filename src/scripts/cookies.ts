@@ -155,6 +155,7 @@ const finishLogin = async (
 
 const loginQRCode = await getLoginQRCode('6788', '1');
 
+// eslint-disable-next-line @typescript-eslint/no-base-to-string
 console.info(await QRCode.toString(loginQRCode, { type: 'terminal', small: true }));
 
 console.info('请使用叨鱼扫描二维码登录');
