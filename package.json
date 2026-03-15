@@ -20,11 +20,11 @@
     "jsqr": "^1.4.0",
     "node-cron": "^4.2.1",
     "qrcode": "^1.5.4",
-    "tough-cookie": "^6.0.0",
+    "tough-cookie": "^6.0.1",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "@rhyster/eslint-config": "^1.8.37",
+    "@rhyster/eslint-config": "^1.8.38",
     "@types/node": "^24.12.0",
     "@types/node-cron": "^3.0.11",
     "@types/qrcode": "^1.5.6",
