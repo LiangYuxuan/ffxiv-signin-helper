@@ -16,7 +16,7 @@
   "dependencies": {
     "dotenv": "^17.4.1",
     "fetch-cookie": "^3.2.0",
-    "jimp": "^1.6.0",
+    "jimp": "^1.6.1",
     "jsqr": "^1.4.0",
     "node-cron": "^4.2.1",
     "qrcode": "^1.5.4",
