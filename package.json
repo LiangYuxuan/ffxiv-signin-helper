@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.3",
     "fetch-cookie": "^3.2.0",
     "jimp": "^1.6.1",
     "jsqr": "^1.4.0",
