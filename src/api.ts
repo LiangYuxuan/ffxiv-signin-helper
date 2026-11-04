@@ -217,14 +217,17 @@ export const doSignIn = async (cookies: string): Promise<SignInResult | undefine
     return res.data as SignInResult | undefined;
 };
 
-export const getSignLog = async (cookies: string, month = new Date()): Promise<SignInLog> => {
+export const getSignLog = async (
+    cookies: string,
+    now = Temporal.Now.instant(),
+): Promise<SignInLog> => {
     const headers = new Headers();
     headers.set('User-Agent', userAgent);
     headers.set('Cookie', cookies);
     headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
 
     const params = new URLSearchParams();
-    params.set('month', month.toISOString().slice(0, 7));
+    params.set('month', now.toString({ timeZone: 'Asia/Shanghai' }).slice(0, 7));
     params.set('tempsuid', crypto.randomUUID());
 
     const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/mySignLog?${params}`, { headers });
@@ -237,7 +240,7 @@ export const getSignLog = async (cookies: string, month = new Date()): Promise<S
 
 export const getSignInRewardList = async (
     cookies: string,
-    month = new Date(),
+    now = Temporal.Now.instant(),
 ): Promise<SignInReward[]> => {
     const headers = new Headers();
     headers.set('User-Agent', userAgent);
@@ -245,7 +248,7 @@ export const getSignInRewardList = async (
     headers.set('Referer', 'https://ff14risingstones.web.sdo.com/');
 
     const params = new URLSearchParams();
-    params.set('month', month.toISOString().slice(0, 7));
+    params.set('month', now.toString({ timeZone: 'Asia/Shanghai' }).slice(0, 7));
     params.set('tempsuid', crypto.randomUUID());
 
     const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/signRewardList?${params}`, { headers });
@@ -259,7 +262,7 @@ export const getSignInRewardList = async (
 export const getSignInReward = async (
     cookies: string,
     id: number,
-    month = new Date(),
+    now = Temporal.Now.instant(),
 ): Promise<void> => {
     const headers = new Headers();
     headers.set('User-Agent', userAgent);
@@ -272,7 +275,7 @@ export const getSignInReward = async (
 
     const body = new URLSearchParams();
     body.set('id', id.toString());
-    body.set('month', month.toISOString().slice(0, 7));
+    body.set('month', now.toString({ timeZone: 'Asia/Shanghai' }).slice(0, 7));
     body.set('tempsuid', crypto.randomUUID());
 
     const req = await fetch(`https://apiff14risingstones.web.sdo.com/api/home/sign/getSignReward?${params}`, { method: 'POST', headers, body });
