@@ -43,7 +43,7 @@ const ssoRedirectURL = 'http://apiff14risingstones.web.sdo.com/api/home/GHome/lo
 const appRedirectURL = 'https://ff14risingstones.web.sdo.com/pc/index.html';
 
 // userinfo 和 __wftflow 都在 https://static.web.sdo.com/yxzm/js/ac.js 中生成
-const userID = `445385824-${Math.round(899999999 * Math.random() + 1E9).toString()}-${Math.round(Date.now() / 1000).toString()}`;
+const userID = `445385824-${Math.round(899999999 * Math.random() + 1E9).toString()}-${Math.round(Temporal.Now.instant().epochMilliseconds / 1000).toString()}`;
 
 const cookieJar = new CookieJar();
 cookieJar.setCookieSync('__wftflow=1607418051=1', 'https://apiff14risingstones.web.sdo.com/');
@@ -98,7 +98,7 @@ const getLoginInfo = async (
     params.set('productId', '2');
     params.set('productVersion', '3.1.0');
     params.set('authenSource', '2');
-    params.set('_', Date.now().toString());
+    params.set('_', Temporal.Now.instant().epochMilliseconds.toString());
 
     const req = await fetchCookie(`https://w.cas.sdo.com/authen/codeKeyLogin.jsonp?${params}`, { headers });
     const res = await req.text();
@@ -117,9 +117,10 @@ const waitLoginQRCode = async (
     areaID: string,
     serviceURL: string,
 ): Promise<string> => {
-    const startTime = Date.now();
+    const startTime = Temporal.Now.instant();
+    const duration = Temporal.Duration.from({ seconds: 60 });
 
-    while (Date.now() - startTime < 60 * 1000) {
+    while (Temporal.Duration.compare(Temporal.Now.instant().since(startTime), duration) === -1) {
         // eslint-disable-next-line no-await-in-loop
         const res = await getLoginInfo(appID, areaID, serviceURL);
 
