@@ -16,7 +16,7 @@
   "dependencies": {
     "dotenv": "^18.0.10",
     "fetch-cookie": "^3.2.0",
-    "jimp": "^1.6.1",
+    "jimp": "^1.7.0",
     "jsqr": "^1.4.0",
     "node-cron": "^4.6.0",
     "qrcode": "^1.5.4",
@@ -24,12 +24,12 @@
     "tsx": "^4.23.15"
   },
   "devDependencies": {
-    "@rhyster/eslint-config": "^2.0.41",
+    "@rhyster/eslint-config": "^2.0.43",
     "@types/node": "^26.6.6",
     "@types/node-cron": "^3.0.11",
     "@types/qrcode": "^1.5.6",
     "eslint": "^10.15.0",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@12.21.0"
+  "packageManager": "pnpm@12.23.0"
 }
